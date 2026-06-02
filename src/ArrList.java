@@ -39,11 +39,40 @@ public class ArrList {
 
 
         // =========================================================
-        // REMOVING ELEMENT
+        // REMOVING ELEMENT by index
         // remove(index)
         // =========================================================
 
         myList.remove(2); // removes 30
+
+        // =========================================================
+        // REMOVING ELEMENT by value
+        // remove(object)
+        // =========================================================
+
+        System.out.println("Before object removal : "+myList);
+
+        myList.remove(Integer.valueOf(390));    // First convert it into its wrapper class object  and then pass the object to be removed.
+
+        System.out.println("After object removal : "+myList);
+
+        // adding the removed object
+        myList.set(2,390);
+
+        // For a string array
+        ArrayList<String> myListObj = new ArrayList<>();
+
+        myListObj.add("fruits");
+        myListObj.add("vegetables");
+        myListObj.add("soup");
+        myListObj.add("junk");
+        myListObj.add("juice");
+
+        System.out.println("New list :: " + myListObj);
+
+        // Remove by object, here we can directly remove it without parsing to a wrapper class as it is not confuse between index integer and value integer
+        myListObj.remove("junk");
+        System.out.println("New list  after removal of object :: " + myListObj);
 
 
         // =========================================================
