@@ -64,11 +64,11 @@ public class Comp {
         List<Students> s = new ArrayList<>();
 
 
-        s.add (new Students("ASam", 98.5));
+        s.add (new Students("Sam", 98.5));
         s.add (new Students("Btim", 92.5));
         s.add (new Students("Ejohn", 72.5));
-        s.add (new Students("Cwales", 70.0));
-        s.add (new Students("DTins", 80.5));
+        s.add (new Students("Zwales", 70.5));
+        s.add (new Students("FTins", 70.5));
 
         for (Students ss : s){
             System.out.println(ss.getName() + " : " + ss.getCgpa());
@@ -88,6 +88,35 @@ public class Comp {
         for (Students ss : s){
             System.out.println(ss.getName() + " : " + ss.getCgpa());
         }
+
+//===============================================================
+//        Using the comparing function of comparator
+//===============================================================
+
+        Comparator<Students> Mycomparator = Comparator.comparing(Students::getCgpa);  // Sorting according to cgpa in Ascending order
+
+        s.sort(Mycomparator);
+        System.out.println("\n \n=========== \nAfter sorting in Ascending order by cgpa");
+
+        for (Students ss : s){
+            System.out.print(ss.getName() + " : " + ss.getCgpa() + " , ");
+        }
+        Comparator<Students> comparator1 = Comparator.comparing(Students::getCgpa).reversed();  // Sorting according to cgpa in desc order
+        s.sort(comparator1);
+        System.out.println("\n \n=========== \nAfter sorting in Descending order by cgpa");
+
+        for (Students ss : s){
+            System.out.print(ss.getName() + " : " + ss.getCgpa() + " , ");
+        }
+        Comparator<Students> comparator2 = Comparator.comparing(Students::getCgpa).reversed().thenComparing(Students::getName);  // Sorting according to cgpa in desc order and if marks are same then in the lex order of names
+
+        s.sort(comparator2);
+        System.out.println("\n \n=========== \nAfter sorting in Descending order by cgpa and if same then by ascending order of names");
+
+        for (Students ss : s){
+            System.out.print(ss.getName() + " : " + ss.getCgpa() + " , ");
+        }
+
 
 
     }
