@@ -13,7 +13,6 @@ public class VectorDemo {
 
         Vector<Integer> vec = new Vector<>();
 
-
         // =========================================================
         // ADDING ELEMENTS
         // =========================================================
@@ -84,8 +83,7 @@ public class VectorDemo {
 
         System.out.println("\nAfter remove(object):");
         System.out.println(vec);
-
-
+        
         // =========================================================
         // FIRST AND LAST ELEMENT
         // =========================================================
