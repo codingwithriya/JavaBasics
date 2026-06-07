@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
@@ -83,7 +84,7 @@ public class VectorDemo {
 
         System.out.println("\nAfter remove(object):");
         System.out.println(vec);
-        
+
         // =========================================================
         // FIRST AND LAST ELEMENT
         // =========================================================
@@ -373,6 +374,40 @@ public class VectorDemo {
          *      insertElementAt()
          *      removeElementAt()
          */
+
+//        Thread Safety of Vector Vs Arraylist
+
+        ArrayList<Integer> a1 = new ArrayList<>();
+        Vector<Integer> v1 = new Vector<>();
+
+        Thread t1 = new Thread(() ->{
+            for (int i = 1; i <= 1000; i++){
+                a1.add(i);
+                v1.add(i);
+            }
+        });
+
+        Thread t2 = new Thread(() ->{
+            for (int i = 1; i <= 1000; i++){
+                a1.add(i);
+                v1.add(i);
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+        try{
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
+
+        System.out.println("Size of the Arraylist :: " + a1.size());  // this will not be able to perform all the operations as not synchronized thus will print less than 2000
+        System.out.println("Size of the Vector :: " + v1.size());  // this will be able to perform all the operations as it is synchronized thus will print less than 2000
+
+
 
         System.out.println("\nProgram Completed.");
     }
