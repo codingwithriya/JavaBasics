@@ -1,3 +1,6 @@
+package CollectionsDemo;
+
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class CopyOnWriteDemo {
@@ -145,6 +148,78 @@ public class CopyOnWriteDemo {
 
         System.out.println("\nAfter clear():");
         System.out.println(list);
+
+        List<String> shoppingList = new CopyOnWriteArrayList<>();
+        shoppingList.add("Milk");
+        shoppingList.add("Eggs");
+        shoppingList.add("Butter");
+
+        for (String item : shoppingList){
+//            reading the shopping List, that will not show any modifications in this loop
+            System.out.println(item);
+
+            if(item.equals("Eggs")){
+                shoppingList.add("Bread"); // Adding elements while reding from it. Thus this write is performed in a copy of this list
+            }
+        }
+
+//        only after the reading and the updation operation is done, only then we can get the updated list
+        System.out.println("The Shopping List after Updation: "+shoppingList);
+
+
+
+        // =========================================================
+        // Do the same Using Multiple threads
+        // =========================================================
+
+        // For ArrayList, it will throw Concurrent Modification  exception
+
+//        Exception in reader threadjava.util.ConcurrentModificationException
+
+//        ArrayList<String> a1 = new ArrayList<>();
+
+        CopyOnWriteArrayList<String> a1 = new CopyOnWriteArrayList<>();
+        a1.add("Item 1");
+        a1.add("Item 2");
+        a1.add("Item 3");
+        a1.add("Item 4");
+        a1.add("Item 5");
+
+        Thread reader = new Thread(()->{
+            try {
+                while(true){
+                    for (String item : a1){
+                        System.out.println("Item no..:" + item);
+                        Thread.sleep(1000);
+                    }
+                }
+            }catch (Exception e){
+                System.out.println("Exception in reader thread"+e);
+            }
+        });
+
+        Thread writer = new Thread(()->{
+            try {
+                while(true){
+                    a1.add("Item 6");
+                    System.out.println("Added Item 6 to the list");
+                    Thread.sleep(1000);
+                    boolean removed = a1.remove("Item 1");
+
+                    if (removed) {
+                        System.out.println("Removed Item 1 from the list");
+                    } else {
+                        System.out.println("Item 1 not found");
+                    }
+                }
+            }catch (Exception e){
+                System.out.println("Exception in reader thread"+e);
+            }
+        });
+
+        reader.start();
+        writer.start();
+
 
 
         // =========================================================
